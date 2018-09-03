@@ -12,6 +12,7 @@ function ens (name, provider) {
   const contract = new EthContract(eth)
   const Registrar = contract(registrarAbi).at(getRegistrar(provider.type))
   return new Promise((resolve, reject) => {
+    console.log('Promise: provider.type is ' + provider.type)
     if (provider.type === 'mainnet' || provider.type === 'ropsten') {
       Registrar.resolver(hash).then((address) => {
         if (address === '0x0000000000000000000000000000000000000000') {
@@ -54,6 +55,7 @@ function getRegistrar (type) {
     case 'ropsten':
       return '0x112234455c3a32fd11230c42e7bccd4a84e02010'
     default:
+      console.log('getRegistrar: type is ' + type)
       return '0x0000000000000000000000000000000000000000'
   }
 }
